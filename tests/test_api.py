@@ -30,6 +30,16 @@ def test_tts_rejects_blank_text():
     assert response.status_code == 422
 
 
+def test_tts_accepts_more_than_120_characters(tmp_path):
+    output = tmp_path / ('b' * 32 + '.mp3')
+    output.write_bytes(b'ID3\x04\x00test')
+    text = '长文本测试' * 100
+    with patch('app.main.synthesizer.synthesize', return_value=(output, {'name': '测试音色'})) as mock:
+        response = client.post('/tts', json={'text': text, 'voice': '测试音色'})
+    assert response.status_code == 200
+    assert mock.call_args.args[0] == text
+
+
 def test_missing_bridge_is_503():
     with patch('app.main.synthesizer.synthesize', side_effect=BridgeUnavailable('请打开剪映')):
         response = client.post('/tts', json={'text': '你好', 'voice': '测试音色'})

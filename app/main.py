@@ -25,7 +25,7 @@ _cache_lock = threading.Lock()
 
 
 class TTSRequest(BaseModel):
-    text: str = Field(min_length=1, max_length=120)
+    text: str = Field(min_length=1, max_length=100_000)
     voice: str = Field(min_length=1, max_length=100)
 
 
