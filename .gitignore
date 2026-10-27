@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+.pytest_cache/
+.packages/
+.venv/
+*.pyc
+
+# Test/temp
+.test-tmp/
+pytest-cache-files-*/
+output/*.tmp
+permission-recovery/
+.github-device.png
+.gh-login-*.txt
+
+# Reference material (not redistributable in this repo)
+reference-project/
+
+# Local runtime state
+*.log
